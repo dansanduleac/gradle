@@ -169,8 +169,18 @@ The Java plugin adds a number of <<managing_dependency_configurations,dependency
 [[tab:configurations]]
 ==== Dependency configurations
 
-`compile`::
-_Compile time dependencies._
+[NOTE]
+====
+
+For `api` and `implementation` configurations introduced by `java-library` plugin, please consult <<java_library_separation, Java Library Plugin>> and <<dependency_management_for_java_projects, Dependency Management Tutorial>>.
+
+====
+
+[.line-through]#`compile`#(Deprecated)::
+_Compile time dependencies._ Superseded by `implementation`.
+
+`implementation` extends `compile`::
+_Implementation only dependencies._
 
 `compileOnly`::
 _Compile time only dependencies, not used at runtime._
@@ -181,11 +191,17 @@ _Compile classpath, used when compiling source._ Used by task `compileJava`.
 `annotationProcessor`::
 _Annotation processors used during compilation._
 
-`runtime` extends `compile`::
-_Runtime dependencies._
+[.line-through]#`runtime`#(Deprecated) extends `compile`::
+_Runtime dependencies._ Superseded by `runtimeOnly`.
 
-`testCompile` extends `compile`::
-_Additional dependencies for compiling tests._
+`runtimeOnly`::
+_Runtime only dependencies._
+
+[.line-through]#`testCompile`#(Deprecated) extends `compile`::
+_Additional dependencies for compiling tests._ Superseded by `testImplementation`.
+
+`testImplementation` extends `testCompile, implementation`::
+_Implementation only dependencies for tests._
 
 `testCompileOnly`::
 _Additional dependencies only for compiling tests, not used at runtime._
@@ -193,8 +209,11 @@ _Additional dependencies only for compiling tests, not used at runtime._
 `testCompileClasspath` extends `testCompile, testCompileOnly`::
 _Test compile classpath, used when compiling test sources._ Used by task `compileTestJava`.
 
-`testRuntime` extends `runtime, testCompile`::
-_Additional dependencies for running tests only._ Used by task `test`.
+[.line-through]#`testRuntime`#(Deprecated) extends `runtime, testCompile`::
+_Additional dependencies for running tests only._ Used by task `test`. Superseded by `testRuntimeOnly`.
+
+`testRuntimeOnly` extends `runtimeOnly`::
+_Runtime only dependencies for running tests._ Used by task `test`.
 
 `archives`::
 Artifacts (e.g. jars) produced by this project. Used by tasks `uploadArchives`.
